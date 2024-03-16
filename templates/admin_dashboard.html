@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>ShareCare</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <base href="../static/">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+  
+</head>
+<body>
+  {% with messages=get_flashed_messages()%}
+      {% if messages %}
+      {% for message in messages %}
+      <script>
+        alert(" {{message}} ");
+      </script>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/">ShareCare</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li class="text-success fs-5">{{session['user']}}</li>
+          <li ><a href="/admin_logout" class="text-danger fs-5"><i class="bi bi-power fs-5"></i>Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
+
+  <div class="container border shadow p-4 rounded-4 border-success table-responsive" style="margin-top: 90px !important;;">
+    <h2 class="text-center text-primary">ShareCare Data</h2>
+  <table class="table table-dark table-hover">
+    <thead>
+        <th scope="col"> Patient Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Case Id</th>
+        <th scope="col">Case Details</th>
+        <th scope="col">Amount Required</th>
+        <th scope="col">Received Amount</th>
+        <th scope="col">Status</th>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for r in record %}
+        <tr>
+            <td>{{r[0]}}</td>
+            <td>{{r[1]}}</td>
+            <td>{{r[3]}}</td>
+            <td>{{r[2]}}</td>
+            <td>{{r[4]}}</td>
+            <td>{{r[5]}}</td>
+            {% set a = r[5]*100/r[4] %}
+            
+          
+            {% if r[6]==0 %}
+            <td class="text-center"><button class="btn btn-success rounded">Completed</button></td>
+            {% elif r[5]>=r[4] %}
+            <td class="text-center"><form action="/status?case_id={{r[3]}}" method="post"><button class="rounded btn btn-warning">Close</button></form></td>
+              {% else %}
+            <td class="text-center"><div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
+              aria-valuemax="100" style="height: 10px;">
+             
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: {{a|round}}%">
+              </div>
+            </div>
+            <div><span>{{"%.2f"|format(a|float)}}%</span></div></td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+</html>

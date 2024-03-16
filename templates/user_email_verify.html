@@ -1,0 +1,38 @@
+{% extends "main_layout.html" %}
+{% block content %}
+
+<body background="/static/assets/img/hero-bg2.jpg">
+
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <section
+                class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 mt-4">
+                <h2 class="text-warning">Email Verification</h2>
+                <form action="/user_email_verify" method="POST">
+                    <h4 style="color: white;"> One-time password (OTP) has been sent to the registered email id. Please check the
+                        email for the verification.</h4>
+                    <h5 style="color: white;">{{email}}</h5>
+                    <div class="form-group text-white text-center">
+                        <label for="exampleInputEmail1"><b>Enter OTP</b></label>
+                        <input type="text" name="otp" class="form-control mt-4" id="exampleInputEmail1"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <input type="hidden" name="email" value="{{email}}">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-warning text-white mt-2"><b>Submit</b></button>
+                    </div>
+                </form>
+            </section>
+        </div>
+</body>
+
+{% endblock %}

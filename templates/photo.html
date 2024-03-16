@@ -1,0 +1,77 @@
+{% extends "user_layout.html" %}
+
+{% block content %}
+
+<body background="/static/assets/img/hero-bg2.jpg">
+
+  <main>
+    <div class="container">
+      {% with messages=get_flashed_messages()%}
+        {% if messages %}
+        {% for message in messages %}
+        <script>
+           alert(" {{message}} ");
+        </script>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="/index" class="logo d-flex align-items-center w-auto">
+                  <img src="assets/img/logo.png" alt="">
+                  <span class="d-none d-lg-block text-shadow text-warning"><h3>ShareCare</h3></span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Upload Photo</h5>
+                    <p class="text-center small">Upload Patient Photos</p>
+                  </div>
+
+                  <form class="row g-3 needs-validation" action="/photo" method="post" enctype="multipart/form-data" novalidate>
+
+                    <div class="col-12">
+                        <label for="">Photo upload</label>
+                        <input type="file" name="p1" class="form-control border-warning">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="">Photo upload</label>
+                        <input type="file" name="p2" class="form-control border-warning">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="">Photo upload</label>
+                        <input type="file" name="p3" class="form-control border-warning">
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary">Upload Now</button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+</body>
+
+{% endblock %}

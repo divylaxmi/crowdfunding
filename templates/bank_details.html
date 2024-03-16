@@ -1,0 +1,25 @@
+{% extends "user_layout.html" %}
+{% block content %}
+
+<section>
+    <div class="container" style="margin-top: 70px;">
+        {% if record %}
+        {% for r in record %}
+        <div class="mt-4">
+            <h4>Account Info.</h4>
+            <h6>Account Holder Name : <b>{{r[0]}}</b></h6>
+            <h6>Account Number : <b>{{r[2]}}</b></h6>
+
+            
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="text-center">
+           <a href="/bank" class="">Add a Bank Account</a> 
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+{% endblock %}

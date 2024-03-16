@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Vendor CSS Files -->
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body style="background-image: url(../static/assets/img/hero-bg2.jpg);">
+    
+    <section style="margin-top: 250px;" >
+    
+        <div class="row featurette">
+            <div class="col-12 text-center">
+                <button id="rzp_button1" class="btn btn-success text-center p-2 fs-5">Pay With Razorpay</button>
+            </div>
+        </div>
+    
+</section>
+
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    var options={
+        "key": "rzp_test_Su8JlfzLV6VozD", //Key_ID
+        "amount": "{{pdata[0]}}", //Amount is in Currency
+        "currency": "INR",
+        "name": "ShareCare",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": "{{pdata[1]}}", //sample order id
+        "callback_url": "/success",
+        "prefill":{
+            "name": "customer name",
+            "email": "{{session['email']}}",
+            "contact": "{{session['mobile']}}"
+        },
+        "notes": {
+            "address": "Raj Arya"
+        },
+        "theme":{
+            "color" : "#5cffab"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp_button1').onclick=function(e){
+        rzp1.open();
+        e.prevent.Default();
+    }
+</script>
+
+</body>
+</html>
